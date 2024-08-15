@@ -7,18 +7,18 @@ namespace MedicalStudentHelper.API.Controllers;
 [ApiController]
 public class TestDatabaseController : ControllerBase
 {
-    private readonly TestContext testContext;
+    //private readonly TestContext testContext;
 
-    public TestDatabaseController(TestContext testContext)
-    {
-        this.testContext = testContext;
-    }
+    //public TestDatabaseController(TestContext testContext)
+    //{
+    //    this.testContext = testContext;
+    //}
 
-    [HttpGet]
-    public async Task<IActionResult> GetValues()
-    {
-        var result = await testContext.Users.ToListAsync();
+    //[HttpGet]
+    //public async Task<IActionResult> GetValues()
+    //{
+    //    var result = await testContext.Users.ToListAsync();
 
-        return Ok(result);
-    }
+    //    return Ok(result);
+    //}
 }

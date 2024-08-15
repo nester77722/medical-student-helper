@@ -16,20 +16,20 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
-        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+        //var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-        builder.Services.AddDbContext<TestContext>(options =>
-        {
-            options.UseSqlite(connectionString);
-        });
+        //builder.Services.AddDbContext<TestContext>(options =>
+        //{
+        //    options.UseSqlite(connectionString);
+        //});
 
         var app = builder.Build();
 
-        using (var scope = app.Services.CreateScope())
-        {
-            var dbContext = scope.ServiceProvider.GetRequiredService<TestContext>();
-            dbContext.Database.Migrate(); // Это применит любые существующие миграции
-        }
+        //using (var scope = app.Services.CreateScope())
+        //{
+        //    var dbContext = scope.ServiceProvider.GetRequiredService<TestContext>();
+        //    dbContext.Database.Migrate(); // Это применит любые существующие миграции
+        //}
 
         // Configure the HTTP request pipeline.
         app.UseSwagger();
