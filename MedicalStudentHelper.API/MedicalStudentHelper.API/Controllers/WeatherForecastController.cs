@@ -28,4 +28,11 @@ public class WeatherForecastController : ControllerBase
         })
         .ToArray();
     }
+
+    [HttpGet("/testDeployScript")]
+    public IActionResult GetFucked()
+    {
+        var result = "Test!";
+        return Ok(result);
+    }
 }
