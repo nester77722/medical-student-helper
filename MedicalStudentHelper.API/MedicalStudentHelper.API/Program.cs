@@ -1,5 +1,6 @@
 using MedicalStudentHelper.API.Entities.Contexts;
-using Microsoft.EntityFrameworkCore;
+using MedicalStudentHelper.API.Entities.Contexts.UserContex;
+using Microsoft.Extensions.Options;
 
 namespace MedicalStudentHelper.API;
 
@@ -16,20 +17,18 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
-        //var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+        var connectionString = builder.Configuration.GetConnectionString("MongoAtlasConnection");
 
-        //builder.Services.AddDbContext<TestContext>(options =>
-        //{
-        //    options.UseSqlite(connectionString);
-        //});
+        builder.Services.Configure<UserContextConfiguration>(
+            builder.Configuration.GetSection(nameof(UserContextConfiguration)));
+
+        builder.Services.AddSingleton(sp =>
+        {
+            var settings = sp.GetRequiredService<IOptions<UserContextConfiguration>>().Value;
+            return new UserContext(settings);
+        });
 
         var app = builder.Build();
-
-        //using (var scope = app.Services.CreateScope())
-        //{
-        //    var dbContext = scope.ServiceProvider.GetRequiredService<TestContext>();
-        //    dbContext.Database.Migrate(); // Это применит любые существующие миграции
-        //}
 
         // Configure the HTTP request pipeline.
         app.UseSwagger();
