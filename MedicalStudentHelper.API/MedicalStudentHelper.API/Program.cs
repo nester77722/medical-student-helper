@@ -18,23 +18,6 @@ public class Program
 
         var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-        var databasePath = Path.GetDirectoryName(connectionString.Split('=')[1]);
-
-        // Проверка и создание папки для базы данных
-        if (!Directory.Exists(databasePath))
-        {
-            Directory.CreateDirectory(databasePath);
-            Console.WriteLine($"Created directory: {databasePath}");
-        }
-
-        // Создание пустого файла базы данных, если он не существует
-        var databaseFile = connectionString.Split('=')[1];
-        if (!File.Exists(databaseFile))
-        {
-            File.Create(databaseFile).Dispose();
-            Console.WriteLine($"Created database file: {databaseFile}");
-        }
-
         builder.Services.AddDbContext<TestContext>(options =>
         {
             options.UseSqlite(connectionString);
