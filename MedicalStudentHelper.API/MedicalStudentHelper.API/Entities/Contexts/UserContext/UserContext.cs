@@ -1,6 +1,7 @@
-﻿using MongoDB.Driver;
+﻿using MedicalStudentHelper.API.Entities.UserContextEntities;
+using MongoDB.Driver;
 
-namespace MedicalStudentHelper.API.Entities.Contexts.UserContex;
+namespace MedicalStudentHelper.API.Entities.Contexts.UserContext;
 
 public class UserContext
 {

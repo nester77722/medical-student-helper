@@ -1,5 +1,8 @@
 using MedicalStudentHelper.API.Entities.Contexts;
-using MedicalStudentHelper.API.Entities.Contexts.UserContex;
+using MedicalStudentHelper.API.Entities.Contexts.TestContext;
+using MedicalStudentHelper.API.Entities.Contexts.UserContext;
+using MedicalStudentHelper.API.Services;
+using MedicalStudentHelper.API.Services.Interfaces;
 using Microsoft.Extensions.Options;
 
 namespace MedicalStudentHelper.API;
@@ -17,16 +20,25 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
-        var connectionString = builder.Configuration.GetConnectionString("MongoAtlasConnection");
-
         builder.Services.Configure<UserContextConfiguration>(
             builder.Configuration.GetSection(nameof(UserContextConfiguration)));
 
-        builder.Services.AddSingleton(sp =>
+        builder.Services.AddTransient(sp =>
         {
             var settings = sp.GetRequiredService<IOptions<UserContextConfiguration>>().Value;
             return new UserContext(settings);
         });
+
+        builder.Services.Configure<TestContextConfiguration>(
+            builder.Configuration.GetSection(nameof(TestContextConfiguration)));
+
+        builder.Services.AddTransient(sp =>
+        {
+            var settings = sp.GetRequiredService<IOptions<TestContextConfiguration>>().Value;
+            return new TestContext(settings);
+        });
+
+        builder.Services.AddTransient<ITestService, TestService>();
 
         var app = builder.Build();
 

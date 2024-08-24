@@ -1,5 +1,5 @@
 ﻿using MedicalStudentHelper.API.Entities.Contexts;
-using MedicalStudentHelper.API.Entities.Contexts.UserContex;
+using MedicalStudentHelper.API.Entities.Contexts.UserContext;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using MongoDB.Driver;

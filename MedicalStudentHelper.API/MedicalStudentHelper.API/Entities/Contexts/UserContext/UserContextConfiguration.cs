@@ -1,4 +1,4 @@
-﻿namespace MedicalStudentHelper.API.Entities.Contexts.UserContex;
+﻿namespace MedicalStudentHelper.API.Entities.Contexts.UserContext;
 
 public class UserContextConfiguration
 {
