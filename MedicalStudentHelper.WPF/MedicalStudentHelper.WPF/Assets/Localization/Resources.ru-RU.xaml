@@ -1,0 +1,12 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mscorlib="clr-namespace:System;assembly=mscorlib"
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="Language_Code">ru-RU</system:String>
+    <system:String x:Key="Setting_Apply">Apply</system:String>
+    <system:String x:Key="Setting_Choose_Your_Language">Выберите ваш язык:</system:String>
+    <system:String x:Key="Display_Hello_World">Hello World!</system:String>
+    <system:String x:Key="Profile">Профиль</system:String>
+    <system:String x:Key="Sign_In">Войти</system:String>
+    <system:String x:Key="Sign_Out">Выйти</system:String>
+</ResourceDictionary>
