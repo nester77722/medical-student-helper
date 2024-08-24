@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MedicalStudentHelper.LocalData.Entities;
 
 namespace MedicalStudentHelper.WPF.Services.Interfaces;
 public interface IAppStateService
@@ -11,6 +7,8 @@ public interface IAppStateService
     string CurrentUserId { get; }
 
     event EventHandler StateChanged;
+
     void DeleteLoginedUser();
-    void SaveLoginedUser(string userId);
+    Task SaveLoginedUserAsync(LocalUser localUser);
+    void StartCheckingUserLoginState();
 }

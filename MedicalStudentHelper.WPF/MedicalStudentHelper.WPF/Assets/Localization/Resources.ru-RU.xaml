@@ -9,4 +9,6 @@
     <system:String x:Key="Profile">Профиль</system:String>
     <system:String x:Key="Sign_In">Войти</system:String>
     <system:String x:Key="Sign_Out">Выйти</system:String>
+    <system:String x:Key="Tests">Тесты</system:String>
+    <system:String x:Key="Please_Authorize_Message">Авторизуйтесь через Google, чтобы сохранить историю ваших тестов.</system:String>
 </ResourceDictionary>

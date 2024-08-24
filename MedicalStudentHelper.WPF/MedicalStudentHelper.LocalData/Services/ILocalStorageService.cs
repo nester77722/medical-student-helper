@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MedicalStudentHelper.LocalData.Services;
+﻿namespace MedicalStudentHelper.LocalData.Services;
 public interface ILocalStorageService
 {
     Task SaveDataAsync<T>(string contextName, string fileName, T data);

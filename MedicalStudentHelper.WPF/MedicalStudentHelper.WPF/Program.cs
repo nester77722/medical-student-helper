@@ -30,7 +30,7 @@ public class Program
         hostBuilder.AddViews();
         hostBuilder.AddServices();
         hostBuilder.AddMapper();
-        
+
         hostBuilder.AddTestContext();
         hostBuilder.AddTestService();
 

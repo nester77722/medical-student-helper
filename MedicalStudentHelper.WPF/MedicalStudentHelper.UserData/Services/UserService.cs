@@ -5,11 +5,6 @@ using MedicalStudentHelper.UserData.Models.GetModels;
 using MedicalStudentHelper.UserData.Services.Interfaces;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MedicalStudentHelper.UserData.Services;
 public class UserService : IUserService

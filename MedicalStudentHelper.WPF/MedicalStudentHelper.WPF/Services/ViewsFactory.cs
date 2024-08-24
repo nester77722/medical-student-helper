@@ -11,10 +11,18 @@ public class ViewsFactory
     {
         _serviceProvider = serviceProvider;
     }
+
     public MainWindow GetMainWindow()
     {
         var window = _serviceProvider.GetRequiredService<MainWindow>();
 
         return window;
+    }
+
+    public ProfilePage GetProfilePage()
+    {
+        var page = _serviceProvider.GetRequiredService<ProfilePage>();
+
+        return page;
     }
 }

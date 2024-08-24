@@ -33,7 +33,7 @@ public class UserLocalService : IUserLocalService
         var signedInDateTime = user.LastLoginTime;
 
         if (signedInDateTime.AddDays(7) < DateTime.Now)
-        {            
+        {
             DeleteUser();
             user = null;
         }

@@ -32,7 +32,7 @@ public class App : Application
     {
         await CheckSavedLanguageSettings();
         _mainWindow.Show();
-        
+
         base.OnStartup(e);
     }
 

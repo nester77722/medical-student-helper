@@ -1,43 +1,71 @@
-﻿using MedicalStudentHelper.WPF.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MedicalStudentHelper.LocalData.Entities;
+using MedicalStudentHelper.LocalData.Services;
+using MedicalStudentHelper.WPF.Services.Interfaces;
 
 namespace MedicalStudentHelper.WPF.Services;
 public class AppStateService : IAppStateService
 {
-    private bool _isUserLoggedIn;
+    private readonly IUserLocalService _userLocalService;
+    private bool isUserLoggedIn;
 
+    public AppStateService(IUserLocalService userLocalService)
+    {
+        _userLocalService = userLocalService;
+    }
+
+    public event EventHandler StateChanged;
+
+    public string CurrentUserId { get; private set; }
     public bool IsUserLoggedIn
     {
-        get => _isUserLoggedIn;
+        get => isUserLoggedIn;
         private set
         {
-            _isUserLoggedIn = value;
+            isUserLoggedIn = value;
             OnStateChanged();
         }
     }
 
-    public void SaveLoginedUser(string userId)
+    public void StartCheckingUserLoginState()
     {
-        CurrentUserId = userId;
-        IsUserLoggedIn = true;
+        _ = CheckUserLoginStateAsync();
     }
 
-    public void DeleteLoginedUser()
+    private async Task CheckUserLoginStateAsync()
     {
-        IsUserLoggedIn = false;
-        CurrentUserId = string.Empty;
+        if (await _userLocalService.IsUserLoggedInAsync())
+        {
+            var user = await _userLocalService.GetUserAsync();
+            CurrentUserId = user.Id;
+            IsUserLoggedIn = true;
+        }
+        else
+        {
+            IsUserLoggedIn = false;
+            CurrentUserId = string.Empty;
+        }
     }
-
-    public string CurrentUserId { get; private set; }
-
-    public event EventHandler StateChanged;
 
     protected virtual void OnStateChanged()
     {
         StateChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void DeleteLoginedUser()
+    {
+        CurrentUserId = string.Empty;
+
+        _userLocalService.DeleteUser();
+
+        IsUserLoggedIn = false;
+    }
+
+    public async Task SaveLoginedUserAsync(LocalUser localUser)
+    {
+        CurrentUserId = localUser.Id;
+
+        await _userLocalService.SaveUserAsync(localUser);
+
+        IsUserLoggedIn = true;
     }
 }

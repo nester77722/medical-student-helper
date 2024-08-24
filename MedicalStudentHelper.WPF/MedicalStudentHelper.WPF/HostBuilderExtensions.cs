@@ -41,6 +41,7 @@ internal static class HostBuilderExtensions
             //services.AddSingleton<AccountsViewModel>();
             //services.AddSingleton<ContactsViewModel>();
             services.AddSingleton<MainWindowViewModel>();
+            services.AddSingleton<ProfilePageViewModel>();
             //services.AddSingleton<PivotalSalesforceIdsViewModel>();
             //services.AddTransient<InsertIdsProgressViewModel>();
         });
@@ -53,6 +54,7 @@ internal static class HostBuilderExtensions
         builder.ConfigureServices(services =>
         {
             services.AddSingleton<MainWindow>();
+            services.AddSingleton<ProfilePage>();
             //services.AddSingleton<AccountsPage>();
             //services.AddSingleton<ContactsPage>();
             //services.AddSingleton<PivotalSalesforceIdsPage>();

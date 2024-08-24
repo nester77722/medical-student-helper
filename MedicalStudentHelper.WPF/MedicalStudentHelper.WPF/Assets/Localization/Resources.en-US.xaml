@@ -9,4 +9,7 @@
     <system:String x:Key="Profile">Profile</system:String>
     <system:String x:Key="Sign_In">Sign in</system:String>
     <system:String x:Key="Sign_Out">Sign out</system:String>
+    <system:String x:Key="Tests">Tests</system:String>
+    <system:String x:Key="Please_Authorize_Message">Sign in with Google to save your test history.</system:String>
+
 </ResourceDictionary>
