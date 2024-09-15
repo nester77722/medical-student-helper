@@ -5,9 +5,9 @@ namespace MedicalStudentHelper.WPF.Views;
 /// <summary>
 /// Interaction logic for ProfilePage.xaml
 /// </summary>
-public partial class ProfilePage : Page
+public partial class ProfileUserControl : UserControl
 {
-    public ProfilePage(ProfilePageViewModel profilePageViewModel)
+    public ProfileUserControl(ProfilePageViewModel profilePageViewModel)
     {
         InitializeComponent();
 

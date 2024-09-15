@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="MedicalStudentHelper.WPF.Views.Admin.InsertTestFromKrokLeadUserControl"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MedicalStudentHelper.WPF.Views.Admin"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800">
+
+    <Grid>
+        <!-- Список категорий -->
+        <ComboBox ItemsSource="{Binding TestCategoryModels}"
+                  DisplayMemberPath="ShortDescription"
+                  SelectedItem="{Binding SelectedCategory}"
+                  IsEditable="True"
+                  TextSearch.TextPath="ShortDescription"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Top"
+                  Width="300">
+        </ComboBox>
+
+        <!-- Ввод текста для JSON -->
+        <TextBox Text="{Binding Json}" 
+                 Grid.Row="1"
+                 Width="Auto"
+                 Height="200"
+                 AcceptsReturn="True"
+                 TextWrapping="Wrap"
+                 VerticalScrollBarVisibility="Auto"/>
+
+        <!-- Кнопка для сохранения теста -->
+        <Button Content="Сохранить тест"
+                Command="{Binding AddTestCommand}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Grid.Row="2"
+                Width="120"/>
+    </Grid>
+</UserControl>

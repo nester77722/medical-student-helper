@@ -32,13 +32,6 @@ public static class UserDataExtensions
     {
         builder.ConfigureServices((context, services) =>
         {
-            var userContextRegistered = services.Any(serviceDescriptor => serviceDescriptor.ServiceType == typeof(UserContext.UserContext));
-
-            if (!userContextRegistered)
-            {
-                builder.AddUserContext();
-            }
-
             services.AddTransient<IUserService, UserService>();
         });
 

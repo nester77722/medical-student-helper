@@ -2,7 +2,9 @@
 using MedicalStudentHelper.WPF.Services;
 using MedicalStudentHelper.WPF.Services.Interfaces;
 using MedicalStudentHelper.WPF.ViewModels;
+using MedicalStudentHelper.WPF.ViewModels.Admin;
 using MedicalStudentHelper.WPF.Views;
+using MedicalStudentHelper.WPF.Views.Admin;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -38,11 +40,11 @@ internal static class HostBuilderExtensions
     {
         builder.ConfigureServices(services =>
         {
-            //services.AddSingleton<AccountsViewModel>();
-            //services.AddSingleton<ContactsViewModel>();
+            services.AddSingleton<AdminViewModel>();
+            services.AddTransient<InsertTestFromKrokLeadViewModel>();
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<ProfilePageViewModel>();
-            //services.AddSingleton<PivotalSalesforceIdsViewModel>();
+            services.AddSingleton<TestCategoriesViewModel>();
             //services.AddTransient<InsertIdsProgressViewModel>();
         });
 
@@ -54,9 +56,10 @@ internal static class HostBuilderExtensions
         builder.ConfigureServices(services =>
         {
             services.AddSingleton<MainWindow>();
-            services.AddSingleton<ProfilePage>();
-            //services.AddSingleton<AccountsPage>();
-            //services.AddSingleton<ContactsPage>();
+            services.AddSingleton<ProfileUserControl>();
+            services.AddTransient<InsertTestFromKrokLeadUserControl>();
+            services.AddSingleton<AdminUserControl>();
+            services.AddSingleton<TestCategoriesUserControl>();
             //services.AddSingleton<PivotalSalesforceIdsPage>();
             //services.AddTransient<AccountDetailsWindow>();
             //services.AddTransient<InsertIdsProgressWindow>();
@@ -72,7 +75,9 @@ internal static class HostBuilderExtensions
         {
             services.AddSingleton<App>();
             services.AddSingleton<LanguageManager>();
-            //services.AddTransient<IPivotalSalesforceIdsService, PivotalSalesforceIdsService>();
+            services.AddTransient<INavigationService, NavigationService>();
+            services.AddKeyedSingleton<INavigationService, NavigationService>(NavigationServiceKeys.AdminCategoriesNavigationServiceKey);
+            services.AddKeyedSingleton<INavigationService, NavigationService>(NavigationServiceKeys.CategoriesNavigationServiceKey);
             //services.AddTransient<IPivotalService, PivotalService>();
         });
 

@@ -1,5 +1,6 @@
 ﻿using MedicalStudentHelper.LocalData.Entities;
 using MedicalStudentHelper.LocalData.Services;
+using MedicalStudentHelper.UserData.Services.Interfaces;
 using MedicalStudentHelper.WPF.Services.Interfaces;
 
 namespace MedicalStudentHelper.WPF.Services;
@@ -7,10 +8,13 @@ public class AppStateService : IAppStateService
 {
     private readonly IUserLocalService _userLocalService;
     private bool isUserLoggedIn;
+    private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
+    private readonly IUserService _userService;
 
-    public AppStateService(IUserLocalService userLocalService)
+    public AppStateService(IUserLocalService userLocalService, IUserService userService)
     {
         _userLocalService = userLocalService;
+        _userService = userService;
     }
 
     public event EventHandler StateChanged;
@@ -33,16 +37,37 @@ public class AppStateService : IAppStateService
 
     private async Task CheckUserLoginStateAsync()
     {
-        if (await _userLocalService.IsUserLoggedInAsync())
+        await _semaphore.WaitAsync();
+
+        try
         {
-            var user = await _userLocalService.GetUserAsync();
-            CurrentUserId = user.Id;
-            IsUserLoggedIn = true;
+            if (await _userLocalService.IsUserLoggedInAsync())
+            {
+                var user = await _userLocalService.GetUserAsync();
+
+                var dbUser = await _userService.GetUserByIdAsync(user.Id);
+
+                if (dbUser != null)
+                {
+                    CurrentUserId = user.Id;
+                    IsUserLoggedIn = true;
+                }
+                else
+                {
+                    DeleteLoginedUser();
+                    CurrentUserId = string.Empty;
+                    IsUserLoggedIn = false;
+                }
+            }
+            else
+            {
+                CurrentUserId = string.Empty;
+                IsUserLoggedIn = false;
+            }
         }
-        else
+        finally
         {
-            IsUserLoggedIn = false;
-            CurrentUserId = string.Empty;
+            _semaphore.Release();
         }
     }
 

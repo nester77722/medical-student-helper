@@ -1,8 +1,8 @@
 ﻿namespace MedicalStudentHelper.TestData.Models.GetModels;
 
-public class GetAllTestsModel
+public class GetTestWithoutQuestionsModel
 {
     public string Id { get; set; }
     public string Name { get; set; }
-    public int Year { get; set; }
+    public string Description { get; set; }
 }

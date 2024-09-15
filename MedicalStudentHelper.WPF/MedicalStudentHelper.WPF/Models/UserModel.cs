@@ -7,4 +7,5 @@ public class UserModel
     public string GivenName { get; set; }
     public string FamilyName { get; set; }
     public string PictureUrl { get; set; }
+    public List<string> Roles { get; set; }
 }

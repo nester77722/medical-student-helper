@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using MedicalStudentHelper.LocalData.Services;
 using MedicalStudentHelper.UserData.Models.GetModels;
 using MedicalStudentHelper.UserData.Services.Interfaces;
@@ -7,6 +8,7 @@ using MedicalStudentHelper.WPF.Models;
 using MedicalStudentHelper.WPF.Services;
 using MedicalStudentHelper.WPF.Services.Authentication;
 using MedicalStudentHelper.WPF.Services.Interfaces;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace MedicalStudentHelper.WPF.ViewModels;
@@ -28,6 +30,7 @@ public partial class MainWindowViewModel : ObservableObject
         _viewsFactory = viewsFactory;
         _googleAuthenticator = googleAuthenticator;
 
+
         CurrentPage = _viewsFactory.GetProfilePage();
 
         var mapperConfig = new MapperConfiguration(config =>
@@ -37,13 +40,50 @@ public partial class MainWindowViewModel : ObservableObject
         });
 
         _mapper = mapperConfig.CreateMapper();
-        //CurrentUser = new UserModel();
 
-        //_appStateService.StateChanged += AppStateChanged;
+        _appStateService.StateChanged += AppStateChanged;
 
-        //CheckUserLoginState().Wait();
+        _appStateService.StartCheckingUserLoginState();
+    }
+
+    private async void AppStateChanged(object? sender, EventArgs e)
+    {
+        if (_appStateService.IsUserLoggedIn)
+        {
+            var user = await _userService.GetUserByIdAsync(_appStateService.CurrentUserId);
+
+            var isAdmin = user.Roles.Any(r => r == "Admin");
+
+            if (isAdmin)
+            {
+                RedirectToAdminButtonVisibility = Visibility.Visible;
+            }
+            else
+            {
+                RedirectToAdminButtonVisibility = Visibility.Hidden;
+            }
+        }
+        else
+        {
+            RedirectToAdminButtonVisibility = Visibility.Hidden;
+        }
     }
 
     [ObservableProperty]
-    private Page _currentPage;
+    private UserControl _currentPage;
+
+    [ObservableProperty]
+    private Visibility _redirectToAdminButtonVisibility;
+
+    [RelayCommand]
+    private void RedirectToAdminView()
+    {
+        CurrentPage = _viewsFactory.GetAdminUserControl();
+    }
+
+    [RelayCommand]
+    private void RedirectToProfileView()
+    {
+        CurrentPage = _viewsFactory.GetProfilePage();
+    }
 }

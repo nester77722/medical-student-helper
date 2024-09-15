@@ -1,6 +1,5 @@
-﻿namespace MedicalStudentHelper.TestData.Models.GetModels;
-
-public class GetTestModel
+﻿namespace MedicalStudentHelper.TestData.Models.CreateModels;
+public class UpdateTestCategoryModel
 {
     public string Id { get; set; }
     public string Name { get; set; }

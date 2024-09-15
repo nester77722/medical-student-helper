@@ -9,4 +9,5 @@ public class User
     public string GivenName { get; set; }
     public string FamilyName { get; set; }
     public string Picture { get; set; }
+    public List<string> Roles { get; set; }
 }

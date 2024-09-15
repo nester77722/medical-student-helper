@@ -32,13 +32,6 @@ public static class TestDataExtensions
     {
         builder.ConfigureServices((context, services) =>
         {
-            var testContextRegistered = services.Any(serviceDescriptor => serviceDescriptor.ServiceType == typeof(TestContext.TestContext));
-
-            if (!testContextRegistered)
-            {
-                builder.AddTestContext();
-            }
-
             services.AddTransient<ITestService, TestService>();
         });
 

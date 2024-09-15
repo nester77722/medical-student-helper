@@ -6,9 +6,12 @@ namespace MedicalStudentHelper.TestData.Services.Interfaces;
 
 public interface ITestService
 {
-    Task<GetTestModel> AddTestAsync(CreateTestModel createTestModel);
+    Task<GetTestWithQuestionsModel> AddTestAsync(CreateTestModel createTestModel);
+    Task<GetTestCategoryModel> CreateCategoryAsync(CreateTestCategoryModel createTestCategoryModel);
     Task DeleteTestAsync(string id);
-    Task<List<GetAllTestsModel>> GetAllTestsAsync();
-    Task<GetTestModel> GetTestByIdAsync(string id);
+    Task<List<GetTestCategoryModel>> GetAllTestCategoriesAsync();
+    Task<List<GetTestWithoutQuestionsModel>> GetTestsByCategoryIdAsync(string categoryId);
+    Task<GetTestWithQuestionsModel> GetTestWithQuestionsAsync(string id);
+    Task UpdateCategoryAsync(UpdateTestCategoryModel updateTestCategoryModel);
     Task UpdateTestAsync(string id, Test updatedTest);
 }

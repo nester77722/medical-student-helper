@@ -30,10 +30,13 @@ public class UserService : IUserService
     {
         var newUser = _mapper.Map<User>(createModel);
 
-        // Сохраняем пользователя в базе данных
+        newUser.Roles = new List<string>
+        {
+            "User"
+        };
+
         await _userContext.Users.InsertOneAsync(newUser);
 
-        // Маппим результат в GetUserModel
         var result = _mapper.Map<GetUserModel>(newUser);
 
         return result;
